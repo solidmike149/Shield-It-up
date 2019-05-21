@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 6909203328243811265}
   - component: {fileID: 6975757439621475467}
   - component: {fileID: 8042725106268425382}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TurretProjectile
-  m_TagString: Untagged
+  m_TagString: TriggerProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,14 +114,14 @@ MonoBehaviour:
   grounded: 0
   contactFilter:
     useTriggers: 0
-    useLayerMask: 0
+    useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
     useNormalAngle: 0
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 4096
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0

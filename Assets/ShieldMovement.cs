@@ -15,20 +15,13 @@ public class ShieldMovement : MonoBehaviour
     Quaternion left = new Quaternion(0, 180, 0, 0);
 
     Quaternion up = new Quaternion(0, 0, 180, 0);
-
-    public Transform arm;
-
-    public bool x;
     
     private void Awake()
     {
-        x = false;
         shieldDirection = Directions.E;
 
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPlatformer>();
         
-        // Arm deve essere il primo child nell'inspector
-        arm = transform.GetChild(0);
     }
 
     void Update()
@@ -58,14 +51,12 @@ public class ShieldMovement : MonoBehaviour
         if ((shieldAngle <= 15 && shieldAngle >= 0)|| (shieldAngle >= 345 && shieldAngle <= 360))
         {
             shieldDirection = Directions.E;
-            x = true;
         }
         else if (shieldAngle < 344 && shieldAngle > 285)
         {
             if (!playerScript.grounded)
             {
                 shieldDirection = Directions.SE;
-                x = true;
             }
         }
         else if (shieldAngle <= 284 && shieldAngle >= 255)
@@ -73,7 +64,6 @@ public class ShieldMovement : MonoBehaviour
             if (!playerScript.grounded)
             {
                 shieldDirection = Directions.S;
-                x = true;
             }
            
         }
@@ -82,32 +72,27 @@ public class ShieldMovement : MonoBehaviour
             if (!playerScript.grounded)
             {
                 shieldDirection = Directions.SW;
-                x = true;
             }
         }
         else if (shieldAngle <= 194 && shieldAngle >= 165)
         {
             shieldDirection = Directions.W;
-            x = true;
         }
         else if (shieldAngle < 164 && shieldAngle > 105)
         {
             if (shieldDirection != Directions.NW)
             {
                 shieldDirection = Directions.NW;
-                x = true;
             }
 
         }
         else if (shieldAngle <= 104 && shieldAngle >= 75)
         {
             shieldDirection = Directions.N;
-            x = true;
         }
         else if (shieldAngle < 74 && shieldAngle > 16)
         {
             shieldDirection = Directions.NE;
-            x = true;
         }
         return shieldDirection;
     }
@@ -122,11 +107,7 @@ public class ShieldMovement : MonoBehaviour
 
             case Directions.NE:
                 transform.eulerAngles = new Vector3(0, 0, 45);
-                //playerScript.gameObject.transform.rotation = Quaternion.identity;
-                if(x)
-                playerScript.transform.eulerAngles = Vector3.zero;
-
-                x = false;
+                playerScript.gameObject.transform.rotation = Quaternion.identity;
                 break;
 
             case Directions.E:
@@ -135,11 +116,7 @@ public class ShieldMovement : MonoBehaviour
 
             case Directions.SE:
                 transform.eulerAngles = new Vector3(0, 0, 315);
-                if(x)
-                playerScript.transform.eulerAngles = Vector3.zero;
-                // playerScript.gameObject.transform.rotation = Quaternion.identity;
-
-                x = false;
+                playerScript.gameObject.transform.rotation = Quaternion.identity;
                 break;
 
             case Directions.S:
@@ -149,11 +126,6 @@ public class ShieldMovement : MonoBehaviour
             case Directions.SW:
                 transform.eulerAngles = new Vector3(0, 0, 225);
                 playerScript.transform.eulerAngles = new Vector3(0,180,0);
-                // playerScript.gameObject.transform.rotation = left;
-                if(x)
-                arm.Rotate(new Vector3(180,0,0));
-
-                x = false;
                 break;
 
             case Directions.W:
@@ -161,13 +133,8 @@ public class ShieldMovement : MonoBehaviour
                 break;
 
             case Directions.NW:
-                transform.eulerAngles = new Vector3(0, 0, 125);
+                transform.eulerAngles = new Vector3(0, 0, 135);
                 playerScript.transform.eulerAngles = new Vector3(0,180, 0);
-                if(x)
-                arm.Rotate(new Vector3(180, 0, 0));
-                // playerScript.gameObject.transform.rotation = left;
-
-                x = false;
                 break;
 
             default:

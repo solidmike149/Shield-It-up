@@ -36,14 +36,11 @@ public class PlayerPlatformer : PhysicsObject
     //12 Usiamo Awake per inizializzare i componenti
     void Awake()
     {
-
         //14 referenza 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         //19 referenza
         animator = GetComponent<Animator>();
-
-        joint = GetComponent<FixedJoint2D>();
 
         //shieldScript = joint.connectedBody.gameObject.GetComponent<ShieldMovement>();
     }
@@ -125,15 +122,17 @@ public class PlayerPlatformer : PhysicsObject
                 velocity.y = velocity.y * 0.5f;
             }
         }
-        // movimento oggetti
-        /*if(Input.GetButtonDown("Interact") && canMoveIt == true && intobject)
+        
+        // Movimento oggetti
+        if(Input.GetButtonDown("Interact") && canMoveIt == true && intobject)
         {
             joint.connectedBody = intobject;
         }
         else if(Input.GetButtonDown("Interact") && joint.connectedBody != shieldScript.gameObject.GetComponent<Rigidbody2D>())
         {
             joint.connectedBody = shieldScript.gameObject.GetComponent<Rigidbody2D>();
-        }*/
+        }
+        
         // interazione cumulo
         if (Input.GetButtonDown("Interact") && canHpUp == true)
         {

@@ -24,7 +24,7 @@ public class ShieldDeflection : MonoBehaviour
 
     private void ShieldBash()
     {
-        if (Input.GetKeyDown(KeyCode.E) && hitting)
+        if (Input.GetButtonDown("ShieldBash") && hitting)
         {
             switch (shieldMovScript.shieldDirection)
             {
