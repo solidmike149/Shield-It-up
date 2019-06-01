@@ -32,7 +32,6 @@ public class Inept : MonoBehaviour
 
     void FixedUpdate()
     {
-
         if (Vector2.Distance(transform.position, playerTransform.position) > 5 && moving)
         {
             transform.position = Vector2.Lerp(transform.position, new Vector2(playerTransform.position.x, transform.position.y), speed * Time.deltaTime);
@@ -62,6 +61,7 @@ public class Inept : MonoBehaviour
         Instantiate(obj, spawnpoint.transform.position, spawnpoint.transform.rotation);
         shooting = false;
         moving = false;
+
         yield return new WaitForSeconds(cooldown);
         moving = true;
     }

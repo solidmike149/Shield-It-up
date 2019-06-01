@@ -24,10 +24,9 @@ public class PlayerPlatformer : PhysicsObject
     // Variabili per movimento oggetti
     public Rigidbody2D intobject;
     public bool canMoveIt;
+    public bool grabbing;
 
     public bool canHpUp;
-
-    public FixedJoint2D joint;
 
     public Scrap scrapScript;
 
@@ -59,7 +58,7 @@ public class PlayerPlatformer : PhysicsObject
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Movimento oggetti
-        if (collision.CompareTag("InteractableObject"))
+        if (collision.CompareTag("MovingObject"))
         {
             canMoveIt = true;
 
@@ -78,7 +77,7 @@ public class PlayerPlatformer : PhysicsObject
     private void OnTriggerExit2D(Collider2D collision)
     {
         // Movimento oggetti
-        if (collision.CompareTag("InteractableObject"))
+        if (collision.CompareTag("MovingObject"))
         {
             canMoveIt = false;
 
@@ -103,9 +102,8 @@ public class PlayerPlatformer : PhysicsObject
         move.x = Input.GetAxis("Horizontal");
 
         //4 Controlliamo per  il salto e se il GameObject è a terra quindi no doublejump
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (Input.GetButtonDown("Jump") && grounded && !grabbing)
         {
-
             //6 impostiamo la velocita del salto
             velocity.y = jumpTakeOffSpeed;
 
@@ -117,7 +115,6 @@ public class PlayerPlatformer : PhysicsObject
             //8 se stiamo ancora andando verso su
             if (velocity.y > 0)
             {
-
                 //9 diminuiamo la velocity
                 velocity.y = velocity.y * 0.5f;
             }
@@ -126,19 +123,28 @@ public class PlayerPlatformer : PhysicsObject
         // Movimento oggetti
         if(Input.GetButtonDown("Interact") && canMoveIt == true && intobject)
         {
-            joint.connectedBody = intobject;
+            grabbing = true;
+            gameObject.AddComponent<FixedJoint2D>();
+            gameObject.GetComponent<FixedJoint2D>().connectedBody = intobject;
+            shieldScript.gameObject.transform.GetChild(1).gameObject.SetActive(false);
         }
-        else if(Input.GetButtonDown("Interact") && joint.connectedBody != shieldScript.gameObject.GetComponent<Rigidbody2D>())
+        else if(Input.GetButtonDown("Interact") && grabbing)
         {
-            joint.connectedBody = shieldScript.gameObject.GetComponent<Rigidbody2D>();
+            Destroy(gameObject.GetComponent<FixedJoint2D>());
+            grabbing = false;
+            shieldScript.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }
         
         // interazione cumulo
         if (Input.GetButtonDown("Interact") && canHpUp == true)
         {
+            Debug.Log("input");
             if(hp < 2)
-            hp++;
-            scrapScript.used = true;
+            {
+                Debug.Log("hpup");
+                hp++;
+                scrapScript.used = true;
+            }
         }
 
         //15 spriterenderer è vero se move.x e maggiore di 0.01 o minore di -0.01

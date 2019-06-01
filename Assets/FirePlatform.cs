@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FirePlatform : MonoBehaviour
 {
-  
     public float velocity;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Player");
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerPlatformer playerscript = collision.gameObject.GetComponent<PlayerPlatformer>();
@@ -26,7 +26,6 @@ public class FirePlatform : MonoBehaviour
             }
         }
     }
-
 }
 
 

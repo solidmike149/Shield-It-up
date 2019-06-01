@@ -99,6 +99,7 @@ public class ShieldMovement : MonoBehaviour
 
     private void MoveShield(Directions directions)
     {
+        if(!playerScript.grabbing)
         switch (shieldDirection)
         {
             case Directions.N:

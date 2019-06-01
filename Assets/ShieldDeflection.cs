@@ -86,7 +86,7 @@ public class ShieldDeflection : MonoBehaviour
             toDestroy = collision.gameObject;
 
             StartCoroutine("CanBash");
-        }
+        }// else if AGGIUNGERE RESET SCUDO ATTERRAGGIO
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

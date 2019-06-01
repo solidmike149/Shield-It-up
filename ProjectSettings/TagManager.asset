@@ -7,9 +7,9 @@ TagManager:
   - TriggerProjectile
   - Patrol
   - Shield
-  - InteractableObject
   - Scrap
   - Floor
+  - MovingObject
   layers:
   - Default
   - TransparentFX
@@ -20,11 +20,11 @@ TagManager:
   - 
   - 
   - Player
-  - IneptProjectile
+  - Shield
   - Floor
   - TrigProjectile
-  - Shield
-  - 
+  - IneptProjectile
+  - Mist
   - 
   - 
   - 
