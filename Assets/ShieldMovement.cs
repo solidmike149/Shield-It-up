@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShieldMovement : MonoBehaviour
 {
+    public bool canCompute;
+
     public float shieldAngle;
 
     public enum Directions { N, NE, E, SE, S, SW, W, NW };
@@ -11,90 +13,97 @@ public class ShieldMovement : MonoBehaviour
     public Directions shieldDirection;
 
     public PlayerPlatformer playerScript;
-
-    Quaternion left = new Quaternion(0, 180, 0, 0);
-
-    Quaternion up = new Quaternion(0, 0, 180, 0);
     
     private void Awake()
     {
         shieldDirection = Directions.E;
 
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPlatformer>();
-        
+
+        canCompute = true;
     }
 
     void Update()
     {
-        MoveShield(DetectDirection(ComputeAngle()));
+        MoveShield(DetectDirection(ComputeAngle(canCompute)));
     }
 
-    private float ComputeAngle()
+    private float ComputeAngle(bool x)
     {
-        Vector2 mousePosition = Input.mousePosition;
-
-        Vector2 targetScreenPosition = Camera.main.WorldToScreenPoint(transform.position);
-
-        Vector2 offset = new Vector2(mousePosition.x - targetScreenPosition.x, mousePosition.y - targetScreenPosition.y);
-
-        shieldAngle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
-
-        if (shieldAngle < 0)
+        if (x)
         {
-            shieldAngle += 360;
+            Vector2 mousePosition = Input.mousePosition;
+
+            Vector2 targetScreenPosition = Camera.main.WorldToScreenPoint(transform.position);
+
+            Vector2 offset = new Vector2(mousePosition.x - targetScreenPosition.x, mousePosition.y - targetScreenPosition.y);
+
+            shieldAngle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+
+            if (shieldAngle < 0)
+            {
+                shieldAngle += 360;
+            }
+            return shieldAngle;
         }
-        return shieldAngle;
+        else
+        {
+            Debug.Log("0");
+            return 0;
+        }
     }
 
     private Directions DetectDirection(float angle)
     {
-        if ((shieldAngle <= 15 && shieldAngle >= 0)|| (shieldAngle >= 345 && shieldAngle <= 360))
+        if (canCompute)
         {
-            shieldDirection = Directions.E;
-        }
-        else if (shieldAngle < 344 && shieldAngle > 285)
-        {
-            if (!playerScript.grounded)
+            if ((shieldAngle <= 15 && shieldAngle >= 0) || (shieldAngle >= 345 && shieldAngle <= 360))
             {
-                shieldDirection = Directions.SE;
+                shieldDirection = Directions.E;
             }
-        }
-        else if (shieldAngle <= 284 && shieldAngle >= 255)
-        {
-            if (!playerScript.grounded)
+            else if (shieldAngle < 344 && shieldAngle > 285)
             {
-                shieldDirection = Directions.S;
+                if (!playerScript.grounded)
+                {
+                    shieldDirection = Directions.SE;
+                }
             }
-           
-        }
-        else if (shieldAngle < 254 && shieldAngle > 195)
-        {
-            if (!playerScript.grounded)
+            else if (shieldAngle <= 284 && shieldAngle >= 255)
             {
-                shieldDirection = Directions.SW;
+                if (!playerScript.grounded)
+                {
+                    shieldDirection = Directions.S;
+                }
             }
-        }
-        else if (shieldAngle <= 194 && shieldAngle >= 165)
-        {
-            shieldDirection = Directions.W;
-        }
-        else if (shieldAngle < 164 && shieldAngle > 105)
-        {
-            if (shieldDirection != Directions.NW)
+            else if (shieldAngle < 254 && shieldAngle > 195)
             {
-                shieldDirection = Directions.NW;
+                if (!playerScript.grounded)
+                {
+                    shieldDirection = Directions.SW;
+                }
             }
-
+            else if (shieldAngle <= 194 && shieldAngle >= 165)
+            {
+                shieldDirection = Directions.W;
+            }
+            else if (shieldAngle < 164 && shieldAngle > 105)
+            {
+                if (shieldDirection != Directions.NW)
+                {
+                    shieldDirection = Directions.NW;
+                }
+            }
+            else if (shieldAngle <= 104 && shieldAngle >= 75)
+            {
+                shieldDirection = Directions.N;
+            }
+            else if (shieldAngle < 74 && shieldAngle > 16)
+            {
+                shieldDirection = Directions.NE;
+            }
+            return shieldDirection;
         }
-        else if (shieldAngle <= 104 && shieldAngle >= 75)
-        {
-            shieldDirection = Directions.N;
-        }
-        else if (shieldAngle < 74 && shieldAngle > 16)
-        {
-            shieldDirection = Directions.NE;
-        }
-        return shieldDirection;
+        else return Directions.E;
     }
 
     private void MoveShield(Directions directions)
@@ -108,7 +117,7 @@ public class ShieldMovement : MonoBehaviour
 
             case Directions.NE:
                 transform.eulerAngles = new Vector3(0, 0, 45);
-                playerScript.gameObject.transform.rotation = Quaternion.identity;
+                playerScript.transform.rotation = Quaternion.identity;
                 break;
 
             case Directions.E:
@@ -117,7 +126,7 @@ public class ShieldMovement : MonoBehaviour
 
             case Directions.SE:
                 transform.eulerAngles = new Vector3(0, 0, 315);
-                playerScript.gameObject.transform.rotation = Quaternion.identity;
+                playerScript.transform.rotation = Quaternion.identity;
                 break;
 
             case Directions.S:
@@ -126,7 +135,7 @@ public class ShieldMovement : MonoBehaviour
 
             case Directions.SW:
                 transform.eulerAngles = new Vector3(0, 0, 225);
-                playerScript.transform.eulerAngles = new Vector3(0,180,0);
+                playerScript.transform.eulerAngles = new Vector3(0, 180, 0);
                 break;
 
             case Directions.W:

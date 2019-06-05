@@ -16,7 +16,7 @@ public class PlayerPlatformer : PhysicsObject
     private SpriteRenderer spriteRenderer;
 
     //18 Variabile per l'animator
-    private Animator animator;
+    public Animator animator;
 
     // Variabile controllo piattaforma infuocata
     public bool isBurning;
@@ -107,11 +107,12 @@ public class PlayerPlatformer : PhysicsObject
             //6 impostiamo la velocita del salto
             velocity.y = jumpTakeOffSpeed;
 
+            animator.SetTrigger("JumpCharge");
+
             //7 cancellazione del salto, se il bottone è stato lasciato
         }
         else if (Input.GetButtonUp("Jump"))
         {
-
             //8 se stiamo ancora andando verso su
             if (velocity.y > 0)
             {
@@ -148,14 +149,14 @@ public class PlayerPlatformer : PhysicsObject
         }
 
         //15 spriterenderer è vero se move.x e maggiore di 0.01 o minore di -0.01
-        bool flipSprite = (spriteRenderer.flipX ? (move.x > 0f) : (move.x < 0f));
+        //bool flipSprite = (spriteRenderer.flipX ? (move.x > 0f) : (move.x < 0f));
         //16 se è vero
-        if (flipSprite)
+        /*if (flipSprite)
         {
 
             //17 lo giriamo (opposto)
-            //spriteRenderer.flipX = !spriteRenderer.flipX;
-        }
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+        }*/
 
         //20 settiamo i parametri all'animator
         animator.SetBool("grounded", grounded);

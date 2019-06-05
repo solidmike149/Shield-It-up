@@ -6,12 +6,34 @@ public class ShieldDeflection : MonoBehaviour
 {
     public ShieldMovement shieldMovScript;
 
+    public PlayerPlatformer player;
+    private Rigidbody2D playerRb2d;
+
     public float deflectionSpeed;
 
     //Variabili per lo shield bash
     public bool hitting;
     public GameObject toDestroy;
     public float bashForce;
+    private void Start()
+    {
+        playerRb2d = player.GetComponent<Rigidbody2D>();
+    }
+    private void Update()
+    {
+        if (Input.GetButtonDown("ShieldBash"))
+            ShieldBash();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("TriggerProjectile"))
+        {
+            toDestroy = collision.gameObject;
+
+            StartCoroutine("CanBash");
+        }
+    }
 
     IEnumerator CanBash()
     {
@@ -22,49 +44,64 @@ public class ShieldDeflection : MonoBehaviour
         hitting = false;
     }
 
+    IEnumerator CanCompute()
+    {
+        shieldMovScript.canCompute = false;
+
+        shieldMovScript.shieldDirection = ShieldMovement.Directions.E;
+
+        yield return new WaitForSeconds(0.5f);
+
+        shieldMovScript.canCompute = true;
+    }
+
     private void ShieldBash()
     {
-        if (Input.GetButtonDown("ShieldBash") && hitting)
         {
+            player.animator.SetTrigger("PlayerBash");
             switch (shieldMovScript.shieldDirection)
             {
                 case ShieldMovement.Directions.N:
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.AddForce(new Vector2(0, -1) * bashForce, ForceMode2D.Impulse);
+                    player.transform.eulerAngles = new Vector3(0, 0, 90);
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.NE:
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, -1) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.AddForce(new Vector2(-1, -1) * bashForce, ForceMode2D.Impulse);
+                    player.transform.eulerAngles = new Vector3(0, 0, 45);
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.E:
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 0) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.AddForce(new Vector2(-1, 0) * bashForce, ForceMode2D.Impulse);
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.SE:
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 1) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.AddForce(new Vector2(-1, 1) * bashForce, ForceMode2D.Impulse);
+                    player.transform.eulerAngles = new Vector3(0, 0, -45);
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.S:
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.AddForce(new Vector2(0, 1) * bashForce, ForceMode2D.Impulse);
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.SW:
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.AddForce(new Vector2(1, 1) * bashForce, ForceMode2D.Impulse);
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.W:
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 0) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.AddForce(new Vector2(1, 0) * bashForce, ForceMode2D.Impulse);
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.NW:
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(1, -1) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.AddForce(new Vector2(1, -1) * bashForce, ForceMode2D.Impulse);
+                    player.transform.eulerAngles = new Vector3(0, 0, 45);
                     Destroy(toDestroy);
                     break;
 
@@ -72,21 +109,6 @@ public class ShieldDeflection : MonoBehaviour
                     break;
             }
         }
-    }
-
-    private void Update()
-    {
-        ShieldBash();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("TriggerProjectile"))
-        {
-            toDestroy = collision.gameObject;
-
-            StartCoroutine("CanBash");
-        }// else if AGGIUNGERE RESET SCUDO ATTERRAGGIO
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -127,6 +149,10 @@ public class ShieldDeflection : MonoBehaviour
 
             default:
                 break;
+        }
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            StartCoroutine("CanCompute");
         }
     }
 }

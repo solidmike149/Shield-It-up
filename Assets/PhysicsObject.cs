@@ -53,6 +53,7 @@ public class PhysicsObject : MonoBehaviour
     void Start()
     {
 
+
         //19 Non controlliamo i contatti trigger
         contactFilter.useTriggers = false;
 
