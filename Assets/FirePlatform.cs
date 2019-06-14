@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class FirePlatform : MonoBehaviour
 {
-    public float velocity;
+    public float rebound;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Player");
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerPlatformer playerscript = collision.gameObject.GetComponent<PlayerPlatformer>();
 
-            if (playerscript.isBurning)
+            if (!playerscript.isBurning)
             {
-                Destroy(collision.gameObject);
+                collision.rigidbody.bodyType = RigidbodyType2D.Dynamic;
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * rebound, ForceMode2D.Impulse);
+                GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                playerscript.isBurning = true;
+                playerscript.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             } 
             else
             {
-                collision.rigidbody.bodyType = RigidbodyType2D.Dynamic;
-                collision.rigidbody.freezeRotation = true;
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * velocity, ForceMode2D.Impulse);
-                playerscript.isBurning = true;
+                Destroy(collision.transform.GetChild(0).gameObject);
+                collision.gameObject.GetComponent<Animator>().SetTrigger("Dead");
+                Destroy(playerscript);
             }
         }
     }

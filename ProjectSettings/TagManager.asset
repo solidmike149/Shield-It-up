@@ -10,6 +10,10 @@ TagManager:
   - Scrap
   - Floor
   - MovingObject
+  - Projectile
+  - Obsidian
+  - FirePlatform
+  - Geyser
   layers:
   - Default
   - TransparentFX
@@ -25,10 +29,10 @@ TagManager:
   - TrigProjectile
   - IneptProjectile
   - Mist
-  - 
-  - 
-  - 
-  - 
+  - Turret
+  - Camera
+  - Geyser
+  - Balcony
   - 
   - 
   - 

@@ -6,14 +6,22 @@ public class MistMovement : MonoBehaviour
 {
     public float speed;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        //StartCoroutine("ChangeSpeed");
+    }
+
     void Update()
     {
         transform.Translate(speed, 0, 0 * Time.deltaTime);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    IEnumerator ChangeSpeed()
     {
+        //Debug.Log("true");
+
+        yield return new WaitForSeconds(4);
+
         speed = -speed;
     }
 }

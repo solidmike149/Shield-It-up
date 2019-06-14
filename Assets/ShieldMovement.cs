@@ -8,7 +8,7 @@ public class ShieldMovement : MonoBehaviour
 
     public float shieldAngle;
 
-    public enum Directions { N, NE, E, SE, S, SW, W, NW };
+    public enum Directions { N, NE, E, SE, S, SW, W, NW};
 
     public Directions shieldDirection;
 
@@ -48,7 +48,6 @@ public class ShieldMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("0");
             return 0;
         }
     }
@@ -88,10 +87,7 @@ public class ShieldMovement : MonoBehaviour
             }
             else if (shieldAngle < 164 && shieldAngle > 105)
             {
-                if (shieldDirection != Directions.NW)
-                {
-                    shieldDirection = Directions.NW;
-                }
+                shieldDirection = Directions.NW;
             }
             else if (shieldAngle <= 104 && shieldAngle >= 75)
             {
@@ -144,7 +140,7 @@ public class ShieldMovement : MonoBehaviour
 
             case Directions.NW:
                 transform.eulerAngles = new Vector3(0, 0, 135);
-                playerScript.transform.eulerAngles = new Vector3(0,180, 0);
+                playerScript.transform.eulerAngles = new Vector3(0, 180, 0);
                 break;
 
             default:

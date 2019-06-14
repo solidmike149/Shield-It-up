@@ -66,7 +66,7 @@ public class Inept : MonoBehaviour
         moving = true;
     }
 
-    /*public IEnumerator DelayFollow()
+    /*IEnumerator DelayFollow()
     {
         if (playerTransform.position.x != )
         {

@@ -7,10 +7,10 @@ public class PlayerPlatformer : PhysicsObject
     public int hp = 1;
 
     //10 Velocita di movimento del GameObject
-    public float maxSpeed = 7;
+    public float maxSpeed;
 
     //5 Aggiungiamo una potenza di salto
-    public float jumpTakeOffSpeed = 7;
+    public float jumpTakeOffSpeed;
 
     //13 Variabile per lo sprite che ci servirà per far girare la sprite
     private SpriteRenderer spriteRenderer;
@@ -32,6 +32,8 @@ public class PlayerPlatformer : PhysicsObject
 
     public ShieldMovement shieldScript;
 
+    private GameObject helmet;
+
     //12 Usiamo Awake per inizializzare i componenti
     void Awake()
     {
@@ -41,36 +43,46 @@ public class PlayerPlatformer : PhysicsObject
         //19 referenza
         animator = GetComponent<Animator>();
 
-        //shieldScript = joint.connectedBody.gameObject.GetComponent<ShieldMovement>();
+    }
+
+    private void Start()
+    {
+        helmet = transform.GetChild(1).gameObject;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Reset Piattaforma infuocata
-        if(collision.gameObject.tag == "Floor")
+        
+        // Reset piattaforma infuocata
+        if(collision.gameObject.tag == "Floor" && isBurning)
         {
-            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-            GetComponent<Rigidbody2D>().freezeRotation = true;
             isBurning = false;
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        // Collisione proiettili e morte
+        else if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "TriggerProjectile")
+        {
+            hp--;
+            if(helmet)
+            helmet.SetActive(false);
+            if (hp < 1)
+            {
+                Destroy(transform.GetChild(0).gameObject);
+                animator.SetTrigger("Dead");
+                Destroy(this);
+            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Movimento oggetti
+        //TO DO  passare controlli sugli oggetti in questione
+            // Movimento oggetti
         if (collision.CompareTag("MovingObject"))
         {
             canMoveIt = true;
 
             intobject = collision.gameObject.GetComponent<Rigidbody2D>();
-        }
-
-        // Mucchio di rottami
-        if (collision.CompareTag("Scrap"))
-        {
-            canHpUp = true;
-
-            scrapScript = collision.gameObject.GetComponent<Scrap>();
         }
     }
 
@@ -82,13 +94,6 @@ public class PlayerPlatformer : PhysicsObject
             canMoveIt = false;
 
             intobject = null;
-        }
-        // Mucchio di rottami
-        if (collision.CompareTag("Scrap"))
-        {
-            canHpUp = false;
-
-            scrapScript = null;
         }
     }
     //1 Togliamo update e questo verra chiamato ogni frame dalla classe base per controllare input e aggiornare l'animazione relativa
@@ -109,10 +114,13 @@ public class PlayerPlatformer : PhysicsObject
 
             animator.SetTrigger("JumpCharge");
 
+            animator.SetBool("Jump", true);
+
             //7 cancellazione del salto, se il bottone è stato lasciato
         }
         else if (Input.GetButtonUp("Jump"))
         {
+            animator.SetBool("Jump", false);
             //8 se stiamo ancora andando verso su
             if (velocity.y > 0)
             {
@@ -139,10 +147,10 @@ public class PlayerPlatformer : PhysicsObject
         // interazione cumulo
         if (Input.GetButtonDown("Interact") && canHpUp == true)
         {
-            Debug.Log("input");
             if(hp < 2)
             {
-                Debug.Log("hpup");
+                StartCoroutine("ScrapChildrenBehaviour");
+                animator.SetTrigger("ScrapSearch");
                 hp++;
                 scrapScript.used = true;
             }
@@ -175,6 +183,19 @@ public class PlayerPlatformer : PhysicsObject
         {
             StartCoroutine("DelayCheck");
         }
+    }
+
+    IEnumerator ScrapChildrenBehaviour()
+    {
+        GameObject pivot = transform.GetChild(0).gameObject;
+
+        pivot.SetActive(false);
+
+        yield return new WaitForSeconds(0.80f);
+
+        helmet.SetActive(true);
+
+        pivot.SetActive(true);
     }
 
     IEnumerator DelayCheck()

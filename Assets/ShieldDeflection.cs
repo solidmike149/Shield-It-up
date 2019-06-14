@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShieldDeflection : MonoBehaviour
 {
     public ShieldMovement shieldMovScript;
-
+    public Rigidbody2D x;
     public PlayerPlatformer player;
     private Rigidbody2D playerRb2d;
 
@@ -15,24 +15,16 @@ public class ShieldDeflection : MonoBehaviour
     public bool hitting;
     public GameObject toDestroy;
     public float bashForce;
+
     private void Start()
     {
         playerRb2d = player.GetComponent<Rigidbody2D>();
     }
+
     private void Update()
     {
         if (Input.GetButtonDown("ShieldBash"))
             ShieldBash();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("TriggerProjectile"))
-        {
-            toDestroy = collision.gameObject;
-
-            StartCoroutine("CanBash");
-        }
     }
 
     IEnumerator CanBash()
@@ -57,19 +49,22 @@ public class ShieldDeflection : MonoBehaviour
 
     private void ShieldBash()
     {
+        //if (hitting)
         {
             player.animator.SetTrigger("PlayerBash");
             switch (shieldMovScript.shieldDirection)
             {
                 case ShieldMovement.Directions.N:
                     playerRb2d.AddForce(new Vector2(0, -1) * bashForce, ForceMode2D.Impulse);
-                    player.transform.eulerAngles = new Vector3(0, 0, 90);
+                    //player.transform.eulerAngles = new Vector3(0, 0, 90);
+                    x.MoveRotation(90);
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.NE:
                     playerRb2d.AddForce(new Vector2(-1, -1) * bashForce, ForceMode2D.Impulse);
-                    player.transform.eulerAngles = new Vector3(0, 0, 45);
+                    //player.transform.eulerAngles = new Vector3(0, 0, 45);
+                    playerRb2d.MoveRotation(45);
                     Destroy(toDestroy);
                     break;
 
@@ -80,7 +75,7 @@ public class ShieldDeflection : MonoBehaviour
 
                 case ShieldMovement.Directions.SE:
                     playerRb2d.AddForce(new Vector2(-1, 1) * bashForce, ForceMode2D.Impulse);
-                    player.transform.eulerAngles = new Vector3(0, 0, -45);
+                    player.transform.eulerAngles = new Vector3(0, 0, 0);
                     Destroy(toDestroy);
                     break;
 
@@ -95,13 +90,14 @@ public class ShieldDeflection : MonoBehaviour
                     break;
 
                 case ShieldMovement.Directions.W:
-                    playerRb2d.AddForce(new Vector2(1, 0) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.MovePosition((playerRb2d.position + new Vector2(0,0)));
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.NW:
                     playerRb2d.AddForce(new Vector2(1, -1) * bashForce, ForceMode2D.Impulse);
-                    player.transform.eulerAngles = new Vector3(0, 0, 45);
+                    //player.transform.eulerAngles = new Vector3(0, 0, 45);
+                    playerRb2d.MoveRotation(45);
                     Destroy(toDestroy);
                     break;
 
@@ -111,46 +107,55 @@ public class ShieldDeflection : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (shieldMovScript.shieldDirection)
+        if (collision.gameObject.CompareTag("TriggerProjectile"))
         {
-            case ShieldMovement.Directions.N:
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * deflectionSpeed, ForceMode2D.Impulse);
-                break;
+            toDestroy = collision.gameObject;
 
-            case ShieldMovement.Directions.NE:
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * deflectionSpeed, ForceMode2D.Impulse);
-                break;
-
-            case ShieldMovement.Directions.E:
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 0) * deflectionSpeed, ForceMode2D.Impulse);
-                break;
-
-            case ShieldMovement.Directions.SE:
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, -1) * deflectionSpeed, ForceMode2D.Impulse);
-                break;
-
-            case ShieldMovement.Directions.S:
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1) * deflectionSpeed, ForceMode2D.Impulse);
-                break;
-
-            case ShieldMovement.Directions.SW:
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, -1) * deflectionSpeed, ForceMode2D.Impulse);
-                break;
-
-            case ShieldMovement.Directions.W:
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 0) * deflectionSpeed, ForceMode2D.Impulse);
-                break;
-
-            case ShieldMovement.Directions.NW:
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 1) * deflectionSpeed, ForceMode2D.Impulse);
-                break;
-
-            default:
-                break;
+            StartCoroutine("CanBash");
         }
-        if (collision.gameObject.CompareTag("Floor"))
+        if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "TriggerProjectile")
+        {
+            switch (shieldMovScript.shieldDirection)
+            {
+                case ShieldMovement.Directions.N:
+                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * deflectionSpeed, ForceMode2D.Impulse);
+                    break;
+
+                case ShieldMovement.Directions.NE:
+                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * deflectionSpeed, ForceMode2D.Impulse);
+                    break;
+
+                case ShieldMovement.Directions.E:
+                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 0) * deflectionSpeed, ForceMode2D.Impulse);
+                    break;
+
+                case ShieldMovement.Directions.SE:
+                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, -1) * deflectionSpeed, ForceMode2D.Impulse);
+                    break;
+
+                case ShieldMovement.Directions.S:
+                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1) * deflectionSpeed, ForceMode2D.Impulse);
+                    break;
+
+                case ShieldMovement.Directions.SW:
+                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, -1) * deflectionSpeed, ForceMode2D.Impulse);
+                    break;
+
+                case ShieldMovement.Directions.W:
+                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 0) * deflectionSpeed, ForceMode2D.Impulse);
+                    break;
+
+                case ShieldMovement.Directions.NW:
+                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 1) * deflectionSpeed, ForceMode2D.Impulse);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        else if (collision.gameObject.CompareTag("Floor"))
         {
             StartCoroutine("CanCompute");
         }

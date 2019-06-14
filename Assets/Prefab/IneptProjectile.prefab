@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3123883303279527266}
   - component: {fileID: 3123883303279527267}
   - component: {fileID: 1623047176208965595}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: IneptProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

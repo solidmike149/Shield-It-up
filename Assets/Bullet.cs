@@ -6,25 +6,16 @@ public class Bullet : MonoBehaviour {
 
     public float speed;
 
-    /*private AxisMovement playerscript;
+    private void OnEnable()
+    {
+        GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 0) * speed, ForceMode2D.Impulse);
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        if (collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.tag != "Shield" || collision.gameObject.tag !="Obsidian")
         {
-
-            playerscript = collision.gameObject.GetComponent<AxisMovement>();
-
-            //playerscript.hp = playerscript.hp - 5;
+            Destroy(gameObject);
         }
-        else
-            Destroy(collision.gameObject, 3);
-    }*/
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
     }
 }

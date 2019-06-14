@@ -8,9 +8,16 @@ public class Scrap : MonoBehaviour
 
     private Color pile;
 
+    private PlayerPlatformer playerScript;
+
+    private void Awake()
+    {
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPlatformer>();
+    }
+
     private void Start()
     {
-        pile = GetComponent<MeshRenderer>().material.color;
+        pile = GetComponent<SpriteRenderer>().material.color;
     }
 
     // Update is called once per frame
@@ -19,6 +26,26 @@ public class Scrap : MonoBehaviour
         if (used)
         {
             StartCoroutine("ScrapVanishing");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerScript.canHpUp = true;
+
+            playerScript.scrapScript = this;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerScript.canHpUp = false;
+
+            playerScript = null;
         }
     }
 
@@ -43,6 +70,6 @@ public class Scrap : MonoBehaviour
 
         pile.a -= 0.05f;
 
-        GetComponent<MeshRenderer>().material.color = pile;
+        GetComponent<SpriteRenderer>().material.color = pile;
     }
 }
