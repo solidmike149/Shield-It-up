@@ -97,7 +97,8 @@ MonoBehaviour:
   shieldMovScript: {fileID: 1194851581761924690}
   x: {fileID: 0}
   player: {fileID: 1194851581406485615}
-  deflectionSpeed: 2.5
+  deflectionSpeed: 1.5
+  rebound: 4
   hitting: 0
   toDestroy: {fileID: 0}
   bashForce: 1
@@ -114,7 +115,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08861661, y: 0}
+  m_Offset: {x: 0.050742686, y: -0.005410403}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -125,7 +126,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.56719685, y: 1}
+  m_Size: {x: 0.6429447, y: 1.183959}
   m_EdgeRadius: 0
 --- !u!50 &2132778239292416915
 Rigidbody2D:

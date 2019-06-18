@@ -20,19 +20,16 @@ public class Inept : MonoBehaviour
 
     public float cooldown;
 
-    //public float delay;
+    public float delay;
 
     void Start()
     {
-
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-
-        //StartCoroutine("DelayFollow");
     }
 
     void FixedUpdate()
     {
-        if (Vector2.Distance(transform.position, playerTransform.position) > 5 && moving)
+        if (Vector2.Distance(transform.position, playerTransform.position) > 0.5f && moving)
         {
             transform.position = Vector2.Lerp(transform.position, new Vector2(playerTransform.position.x, transform.position.y), speed * Time.deltaTime);
         }
@@ -47,7 +44,7 @@ public class Inept : MonoBehaviour
     {
         if (shooting == false)
         {
-            if (transform.position.x > playerTransform.position.x - 0.5f && transform.position.x < playerTransform.position.x + 0.5f)
+            if (transform.position.x > playerTransform.position.x - 0.05f && transform.position.x < playerTransform.position.x + 0.05f)
             {
                 StartCoroutine("SpawnProjectile");
                 shooting = true;
@@ -65,15 +62,4 @@ public class Inept : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         moving = true;
     }
-
-    /*IEnumerator DelayFollow()
-    {
-        if (playerTransform.position.x != )
-        {
-            yield return new WaitForSeconds(delay);
-            
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(playerTransform.position.x, transform.position.y), speed * Time.deltaTime);
-            
-        }
-    }*/
 }

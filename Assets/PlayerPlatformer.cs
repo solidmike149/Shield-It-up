@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerPlatformer : PhysicsObject
 {
@@ -54,13 +55,13 @@ public class PlayerPlatformer : PhysicsObject
     {
         
         // Reset piattaforma infuocata
-        if(collision.gameObject.tag == "Floor" && isBurning)
+        if(collision.gameObject.CompareTag("Floor") && isBurning)
         {
             isBurning = false;
             GetComponent<SpriteRenderer>().color = Color.white;
         }
         // Collisione proiettili e morte
-        else if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "TriggerProjectile")
+        else if (collision.gameObject.CompareTag ("Projectile") || collision.gameObject.CompareTag ("TriggerProjectile"))
         {
             hp--;
             if(helmet)
@@ -69,9 +70,14 @@ public class PlayerPlatformer : PhysicsObject
             {
                 Destroy(transform.GetChild(0).gameObject);
                 animator.SetTrigger("Dead");
-                Destroy(this);
             }
         }
+        // Collisione geyser
+        /*else if (collision.gameObject.CompareTag("Geyser"))
+        {
+            Destroy(transform.GetChild(0).gameObject);
+            animator.SetTrigger("Dead");
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -96,6 +102,13 @@ public class PlayerPlatformer : PhysicsObject
             intobject = null;
         }
     }
+
+    public void Death()
+    {
+        Destroy(transform.GetChild(0).gameObject);
+        animator.SetTrigger("Dead");
+    }
+
     //1 Togliamo update e questo verra chiamato ogni frame dalla classe base per controllare input e aggiornare l'animazione relativa
     protected override void ComputeVelocity()
     {
@@ -183,6 +196,11 @@ public class PlayerPlatformer : PhysicsObject
         {
             StartCoroutine("DelayCheck");
         }
+    }
+
+    private void LoadLevel(int index)
+    {
+        SceneManager.LoadScene(index);
     }
 
     IEnumerator ScrapChildrenBehaviour()

@@ -11,6 +11,8 @@ public class ShieldDeflection : MonoBehaviour
 
     public float deflectionSpeed;
 
+    public float rebound;
+
     //Variabili per lo shield bash
     public bool hitting;
     public GameObject toDestroy;
@@ -49,7 +51,7 @@ public class ShieldDeflection : MonoBehaviour
 
     private void ShieldBash()
     {
-        //if (hitting)
+        if (hitting)
         {
             player.animator.SetTrigger("PlayerBash");
             switch (shieldMovScript.shieldDirection)
@@ -117,38 +119,48 @@ public class ShieldDeflection : MonoBehaviour
         }
         if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "TriggerProjectile")
         {
+            Rigidbody2D rb2d = collision.gameObject.GetComponent<Rigidbody2D>();
+
             switch (shieldMovScript.shieldDirection)
             {
                 case ShieldMovement.Directions.N:
-                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * deflectionSpeed, ForceMode2D.Impulse);
+                    rb2d.velocity = Vector2.zero;
+                    rb2d.AddForce(new Vector2(0, 1) * deflectionSpeed, ForceMode2D.Impulse);
                     break;
 
                 case ShieldMovement.Directions.NE:
-                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * deflectionSpeed, ForceMode2D.Impulse);
+                    rb2d.velocity = Vector2.zero;
+                    rb2d.AddForce(new Vector2(1, 1) * deflectionSpeed, ForceMode2D.Impulse);
                     break;
 
                 case ShieldMovement.Directions.E:
-                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 0) * deflectionSpeed, ForceMode2D.Impulse);
+                    rb2d.velocity = Vector2.zero;
+                    rb2d.AddForce(new Vector2(1, 0) * deflectionSpeed, ForceMode2D.Impulse);
                     break;
 
                 case ShieldMovement.Directions.SE:
-                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, -1) * deflectionSpeed, ForceMode2D.Impulse);
+                    rb2d.velocity = Vector2.zero;
+                    rb2d.AddForce(new Vector2(-1, -1) * deflectionSpeed, ForceMode2D.Impulse);
                     break;
 
                 case ShieldMovement.Directions.S:
-                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1) * deflectionSpeed, ForceMode2D.Impulse);
+                    rb2d.velocity = Vector2.zero;
+                    rb2d.AddForce(new Vector2(0, -1) * deflectionSpeed, ForceMode2D.Impulse);
                     break;
 
                 case ShieldMovement.Directions.SW:
-                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, -1) * deflectionSpeed, ForceMode2D.Impulse);
+                    rb2d.velocity = Vector2.zero;
+                    rb2d.AddForce(new Vector2(-1, -1) * deflectionSpeed, ForceMode2D.Impulse);
                     break;
 
                 case ShieldMovement.Directions.W:
-                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 0) * deflectionSpeed, ForceMode2D.Impulse);
+                    rb2d.velocity = Vector2.zero;
+                    rb2d.AddForce(new Vector2(-1, 0) * deflectionSpeed, ForceMode2D.Impulse);
                     break;
 
                 case ShieldMovement.Directions.NW:
-                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 1) * deflectionSpeed, ForceMode2D.Impulse);
+                    rb2d.velocity = Vector2.zero;
+                    rb2d.AddForce(new Vector2(-1, 1) * deflectionSpeed, ForceMode2D.Impulse);
                     break;
 
                 default:
@@ -159,5 +171,13 @@ public class ShieldDeflection : MonoBehaviour
         {
             StartCoroutine("CanCompute");
         }
+        /*else if (collision.gameObject.CompareTag("Geyser"))
+        {
+            playerRb2d.velocity = Vector2.zero;
+
+            playerRb2d.bodyType = RigidbodyType2D.Dynamic;
+            playerRb2d.AddForce(new Vector2(0, 1) * rebound, ForceMode2D.Impulse);
+            playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+        }*/
     }
 }

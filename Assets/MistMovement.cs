@@ -8,7 +8,7 @@ public class MistMovement : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine("ChangeSpeed");
+        StartCoroutine("ChangeSpeed");
     }
 
     void Update()
@@ -18,10 +18,11 @@ public class MistMovement : MonoBehaviour
 
     IEnumerator ChangeSpeed()
     {
-        //Debug.Log("true");
+        while (true)
+        {
+            yield return new WaitForSeconds(5);
 
-        yield return new WaitForSeconds(4);
-
-        speed = -speed;
+            speed = -speed;
+        }
     }
 }
