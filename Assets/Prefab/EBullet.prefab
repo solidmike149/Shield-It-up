@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2591977493579266292}
   - component: {fileID: 4215174929777991698}
+  - component: {fileID: 4808321091173286838}
   - component: {fileID: 7241184854640054753}
   - component: {fileID: 5010020881841098720}
   - component: {fileID: 4458386446623814257}
   - component: {fileID: 2972647353814279828}
-  - component: {fileID: 4808321091173286838}
   m_Layer: 11
   m_Name: EBullet
   m_TagString: TriggerProjectile
@@ -84,6 +84,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4808321091173286838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834147413871553195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 667449eefc9379641b8bf740f7909a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  myBullet: 2
 --- !u!95 &7241184854640054753
 Animator:
   serializedVersion: 3
@@ -156,17 +170,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4808321091173286838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 834147413871553195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 667449eefc9379641b8bf740f7909a86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  myBullet: 2

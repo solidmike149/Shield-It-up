@@ -24,10 +24,7 @@ public class FirePlatform : MonoBehaviour
             {
                 Destroy(collision.transform.GetChild(0).gameObject);
                 collision.gameObject.GetComponent<Animator>().SetTrigger("Dead");
-                Destroy(playerscript);
             }
         }
     }
 }
-
-

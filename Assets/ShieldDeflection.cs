@@ -5,9 +5,12 @@ using UnityEngine;
 public class ShieldDeflection : MonoBehaviour
 {
     public ShieldMovement shieldMovScript;
-    public Rigidbody2D x;
     public PlayerPlatformer player;
     private Rigidbody2D playerRb2d;
+
+    private Vector2 zero = Vector2.zero;
+
+    public float resetVelocity;
 
     public float deflectionSpeed;
 
@@ -20,6 +23,8 @@ public class ShieldDeflection : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPlatformer>();
+
         playerRb2d = player.GetComponent<Rigidbody2D>();
     }
 
@@ -49,6 +54,13 @@ public class ShieldDeflection : MonoBehaviour
         shieldMovScript.canCompute = true;
     }
 
+    IEnumerator ResetBashAddforce()
+    {
+        yield return new WaitForSeconds(resetVelocity);
+        playerRb2d.velocity = zero;
+
+
+    }
     private void ShieldBash()
     {
         if (hitting)
@@ -57,49 +69,74 @@ public class ShieldDeflection : MonoBehaviour
             switch (shieldMovScript.shieldDirection)
             {
                 case ShieldMovement.Directions.N:
+                    playerRb2d.velocity = Vector2.zero;
+                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(0, -1) * bashForce, ForceMode2D.Impulse);
-                    //player.transform.eulerAngles = new Vector3(0, 0, 90);
-                    x.MoveRotation(90);
+                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    StartCoroutine("ResetBashAddforce");
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.NE:
+                    playerRb2d.velocity = Vector2.zero;
+                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(-1, -1) * bashForce, ForceMode2D.Impulse);
-                    //player.transform.eulerAngles = new Vector3(0, 0, 45);
-                    playerRb2d.MoveRotation(45);
+                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    StartCoroutine("ResetBashAddforce");
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.E:
+                    playerRb2d.velocity = Vector2.zero;
+                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(-1, 0) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    StartCoroutine("ResetBashAddforce");
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.SE:
+                    playerRb2d.velocity = Vector2.zero;
+                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(-1, 1) * bashForce, ForceMode2D.Impulse);
-                    player.transform.eulerAngles = new Vector3(0, 0, 0);
+                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    StartCoroutine("ResetBashAddforce");
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.S:
+                    playerRb2d.velocity = Vector2.zero;
+                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(0, 1) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    StartCoroutine("ResetBashAddforce");
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.SW:
+                    playerRb2d.velocity = Vector2.zero;
+                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(1, 1) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    StartCoroutine("ResetBashAddforce");
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.W:
-                    playerRb2d.MovePosition((playerRb2d.position + new Vector2(0,0)));
+                    playerRb2d.velocity = Vector2.zero;
+                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
+                    playerRb2d.AddForce(new Vector2(1, 0) * bashForce, ForceMode2D.Impulse);
+                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    StartCoroutine("ResetBashAddforce");
                     Destroy(toDestroy);
                     break;
 
                 case ShieldMovement.Directions.NW:
+                    playerRb2d.velocity = Vector2.zero;
+                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(1, -1) * bashForce, ForceMode2D.Impulse);
-                    //player.transform.eulerAngles = new Vector3(0, 0, 45);
-                    playerRb2d.MoveRotation(45);
+                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    StartCoroutine("ResetBashAddforce");
                     Destroy(toDestroy);
                     break;
 
@@ -140,7 +177,7 @@ public class ShieldDeflection : MonoBehaviour
 
                 case ShieldMovement.Directions.SE:
                     rb2d.velocity = Vector2.zero;
-                    rb2d.AddForce(new Vector2(-1, -1) * deflectionSpeed, ForceMode2D.Impulse);
+                    rb2d.AddForce(new Vector2(1, -1) * deflectionSpeed, ForceMode2D.Impulse);
                     break;
 
                 case ShieldMovement.Directions.S:

@@ -71,9 +71,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 8
-  m_Sprite: {fileID: 21300000, guid: 97cc6160d4c8791468c26cebf7b94b97, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a1ece70221766cd418377f081d772399, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.5, y: 1}
@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldMovScript: {fileID: 1194851581761924690}
-  x: {fileID: 0}
-  player: {fileID: 1194851581406485615}
+  player: {fileID: 0}
+  resetVelocity: 0
   deflectionSpeed: 1.5
   rebound: 4
   hitting: 0
@@ -115,7 +115,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.050742686, y: -0.005410403}
+  m_Offset: {x: 0.0938738, y: 0.016142339}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -126,7 +126,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6429447, y: 1.183959}
+  m_Size: {x: 0.7292069, y: 1.3303576}
   m_EdgeRadius: 0
 --- !u!50 &2132778239292416915
 Rigidbody2D:
@@ -247,7 +247,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009763166, y: -0.054753065}
+  m_Offset: {x: -0.009763181, y: -0.050439954}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -258,7 +258,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7156837, y: 1.5904939}
+  m_Size: {x: 0.7156837, y: 1.5818677}
   m_EdgeRadius: 0
 --- !u!50 &1194851581406485614
 Rigidbody2D:
@@ -275,12 +275,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1194851581406485615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   hp: 1
-  maxSpeed: 3
+  maxSpeed: 2.5
   jumpTakeOffSpeed: 4
   animator: {fileID: 0}
   isBurning: 0

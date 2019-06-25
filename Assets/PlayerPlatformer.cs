@@ -53,9 +53,8 @@ public class PlayerPlatformer : PhysicsObject
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
         // Reset piattaforma infuocata
-        if(collision.gameObject.CompareTag("Floor") && isBurning)
+        if (collision.gameObject.CompareTag("Floor") && isBurning)
         {
             isBurning = false;
             GetComponent<SpriteRenderer>().color = Color.white;
@@ -89,6 +88,11 @@ public class PlayerPlatformer : PhysicsObject
             canMoveIt = true;
 
             intobject = collision.gameObject.GetComponent<Rigidbody2D>();
+        }
+        else if (collision.CompareTag("Geyser"))
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            animator.SetTrigger("GeyserDeath");
         }
     }
 

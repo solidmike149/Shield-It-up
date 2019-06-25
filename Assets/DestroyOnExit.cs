@@ -9,7 +9,7 @@ public class DestroyOnExit : MonoBehaviour
     {
 
         if (collision.gameObject.CompareTag("Player"))
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         else
             Destroy(collision.gameObject);
     }

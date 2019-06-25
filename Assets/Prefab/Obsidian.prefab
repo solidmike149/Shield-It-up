@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6004087705014844580}
   - component: {fileID: 6004087705014844578}
   - component: {fileID: 8174888405022904526}
-  m_Layer: 14
+  m_Layer: 18
   m_Name: Obsidian
   m_TagString: Obsidian
   m_Icon: {fileID: 0}

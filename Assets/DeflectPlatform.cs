@@ -12,7 +12,7 @@ public class DeflectPlatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("TriggerProjectile"))
+        if (collision.gameObject.CompareTag("TriggerProjectile") || collision.gameObject.CompareTag("Projectile"))
         {
             Rigidbody2D rb2d = collision.gameObject.GetComponent<Rigidbody2D>();
 

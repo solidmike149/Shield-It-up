@@ -30,6 +30,7 @@ public class ShieldMovement : MonoBehaviour
 
     private float ComputeAngle(bool x)
     {
+        float actualAngle = shieldAngle;
         if (x)
         {
             Vector2 mousePosition = Input.mousePosition;
@@ -54,6 +55,8 @@ public class ShieldMovement : MonoBehaviour
 
     private Directions DetectDirection(float angle)
     {
+        Directions x = shieldDirection;
+
         if (canCompute)
         {
             if ((shieldAngle <= 15 && shieldAngle >= 0) || (shieldAngle >= 345 && shieldAngle <= 360))
@@ -66,6 +69,8 @@ public class ShieldMovement : MonoBehaviour
                 {
                     shieldDirection = Directions.SE;
                 }
+                else shieldDirection = x;
+
             }
             else if (shieldAngle <= 284 && shieldAngle >= 255)
             {
@@ -73,6 +78,7 @@ public class ShieldMovement : MonoBehaviour
                 {
                     shieldDirection = Directions.S;
                 }
+                else shieldDirection = x;
             }
             else if (shieldAngle < 254 && shieldAngle > 195)
             {
@@ -80,6 +86,7 @@ public class ShieldMovement : MonoBehaviour
                 {
                     shieldDirection = Directions.SW;
                 }
+                else shieldDirection = x;
             }
             else if (shieldAngle <= 194 && shieldAngle >= 165)
             {
@@ -97,9 +104,9 @@ public class ShieldMovement : MonoBehaviour
             {
                 shieldDirection = Directions.NE;
             }
-            return shieldDirection;
+           
         }
-        else return Directions.E;
+        return shieldDirection;
     }
 
     private void MoveShield(Directions directions)
@@ -123,15 +130,21 @@ public class ShieldMovement : MonoBehaviour
             case Directions.SE:
                 transform.eulerAngles = new Vector3(0, 0, 315);
                 playerScript.transform.rotation = Quaternion.identity;
+                //playerScript.animator.SetBool("Shield45", true);
+                //playerScript.animator.SetBool("ShieldDown", false);
                 break;
 
             case Directions.S:
                 transform.eulerAngles = new Vector3(0, 0, 270);
+                //playerScript.animator.SetBool("ShieldDown", true);
+                //playerScript.animator.SetBool("Shield45", false);
                 break;
 
             case Directions.SW:
                 transform.eulerAngles = new Vector3(0, 0, 225);
                 playerScript.transform.eulerAngles = new Vector3(0, 180, 0);
+                //playerScript.animator.SetBool("Shield45", true);
+                //playerScript.animator.SetBool("ShieldDown", false);
                 break;
 
             case Directions.W:

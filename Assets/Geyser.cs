@@ -8,20 +8,24 @@ public class Geyser : MonoBehaviour
 
     public Rigidbody2D playerRb2d;
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log(collision.gameObject.tag);
 
+    IEnumerator ResetGeyserForce()
+    {
+        yield return new WaitForSeconds(1f);
+
+        playerRb2d.velocity = Vector2.zero;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.CompareTag("Shield"))
         {
-            Debug.Log(collision.gameObject.tag);
             playerRb2d.velocity = Vector2.zero;
 
             playerRb2d.bodyType = RigidbodyType2D.Dynamic;
             playerRb2d.AddForce(new Vector2(0, 1) * rebound, ForceMode2D.Impulse);
             playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+            StartCoroutine("ResetGeyserForce");
         }
-        else
-            Debug.Log(collision.gameObject.tag);
     }
 }
