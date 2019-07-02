@@ -35,6 +35,10 @@ public class PlayerPlatformer : PhysicsObject
 
     private GameObject helmet;
 
+    public float resetVelocity;
+
+    private Vector2 zero = Vector2.zero;
+
     //12 Usiamo Awake per inizializzare i componenti
     void Awake()
     {
@@ -57,7 +61,7 @@ public class PlayerPlatformer : PhysicsObject
         if (collision.gameObject.CompareTag("Floor") && isBurning)
         {
             isBurning = false;
-            GetComponent<SpriteRenderer>().color = Color.white;
+            animator.SetBool("IsBurning", false);
         }
         // Collisione proiettili e morte
         else if (collision.gameObject.CompareTag ("Projectile") || collision.gameObject.CompareTag ("TriggerProjectile"))
@@ -71,18 +75,10 @@ public class PlayerPlatformer : PhysicsObject
                 animator.SetTrigger("Dead");
             }
         }
-        // Collisione geyser
-        /*else if (collision.gameObject.CompareTag("Geyser"))
-        {
-            Destroy(transform.GetChild(0).gameObject);
-            animator.SetTrigger("Dead");
-        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //TO DO  passare controlli sugli oggetti in questione
-            // Movimento oggetti
         if (collision.CompareTag("MovingObject"))
         {
             canMoveIt = true;
@@ -92,6 +88,9 @@ public class PlayerPlatformer : PhysicsObject
         else if (collision.CompareTag("Geyser"))
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            Destroy(transform.GetChild(0).gameObject);
+            gravityModifier = 0;
+            Destroy(this);
             animator.SetTrigger("GeyserDeath");
         }
     }
@@ -226,5 +225,11 @@ public class PlayerPlatformer : PhysicsObject
 
         if (Mathf.Abs(velocity.x) == 0)
             animator.SetBool("velocityX", false);        
+    }
+
+    IEnumerator ResetAddforce()
+    {
+        yield return new WaitForSeconds(resetVelocity);
+        rb2d.velocity = zero;
     }
 }

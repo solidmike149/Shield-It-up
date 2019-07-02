@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class WestEnemyShooting : MonoBehaviour
 {
+    public int bulletRotation;
+
     public GameObject obj;
 
     public Transform spawnpoint;
 
-    public SpriteRenderer sRenderer;
+    private SpriteRenderer sRenderer;
 
     private Animator animator;
 
@@ -28,21 +30,21 @@ public class WestEnemyShooting : MonoBehaviour
             StartCoroutine("TurretShutdown");
         }
     }
-
+    
     private void Shoot()
     {
-        Instantiate(obj, spawnpoint.position, spawnpoint.rotation = new Quaternion(0, 180, 0, 0));
+        Instantiate(obj, spawnpoint.position, spawnpoint.rotation = new Quaternion(0, bulletRotation, 0, 0));
     }
 
     IEnumerator TurretShutdown()
     {
         animator.SetBool("ShutDown", true);
 
-        sRenderer.color = Color.grey;
+        //sRenderer.color = Color.grey;
 
         yield return new WaitForSeconds(deactivateTime);
 
-        sRenderer.color = Color.white;
+        //sRenderer.color = Color.white;
 
         animator.SetBool("ShutDown", false);
     }

@@ -16,9 +16,11 @@ public class FirePlatform : MonoBehaviour
             {
                 collision.rigidbody.bodyType = RigidbodyType2D.Dynamic;
                 collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * rebound, ForceMode2D.Impulse);
-                GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 playerscript.isBurning = true;
-                playerscript.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                playerscript.animator.SetBool("IsBurning", true);
+                playerscript.StartCoroutine("ResetAddforce");
+                collision.rigidbody.bodyType = RigidbodyType2D.Kinematic;
+                
             } 
             else
             {

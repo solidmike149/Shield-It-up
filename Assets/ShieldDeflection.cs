@@ -54,13 +54,6 @@ public class ShieldDeflection : MonoBehaviour
         shieldMovScript.canCompute = true;
     }
 
-    IEnumerator ResetBashAddforce()
-    {
-        yield return new WaitForSeconds(resetVelocity);
-        playerRb2d.velocity = zero;
-
-
-    }
     private void ShieldBash()
     {
         if (hitting)
@@ -73,7 +66,7 @@ public class ShieldDeflection : MonoBehaviour
                     playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(0, -1) * bashForce, ForceMode2D.Impulse);
                     playerRb2d.bodyType = RigidbodyType2D.Kinematic;
-                    StartCoroutine("ResetBashAddforce");
+                    player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;
 
@@ -82,7 +75,7 @@ public class ShieldDeflection : MonoBehaviour
                     playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(-1, -1) * bashForce, ForceMode2D.Impulse);
                     playerRb2d.bodyType = RigidbodyType2D.Kinematic;
-                    StartCoroutine("ResetBashAddforce");
+                    player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;
 
@@ -91,7 +84,7 @@ public class ShieldDeflection : MonoBehaviour
                     playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(-1, 0) * bashForce, ForceMode2D.Impulse);
                     playerRb2d.bodyType = RigidbodyType2D.Kinematic;
-                    StartCoroutine("ResetBashAddforce");
+                    player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;
 
@@ -100,7 +93,7 @@ public class ShieldDeflection : MonoBehaviour
                     playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(-1, 1) * bashForce, ForceMode2D.Impulse);
                     playerRb2d.bodyType = RigidbodyType2D.Kinematic;
-                    StartCoroutine("ResetBashAddforce");
+                    player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;
 
@@ -109,7 +102,7 @@ public class ShieldDeflection : MonoBehaviour
                     playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(0, 1) * bashForce, ForceMode2D.Impulse);
                     playerRb2d.bodyType = RigidbodyType2D.Kinematic;
-                    StartCoroutine("ResetBashAddforce");
+                    player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;
 
@@ -118,7 +111,7 @@ public class ShieldDeflection : MonoBehaviour
                     playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(1, 1) * bashForce, ForceMode2D.Impulse);
                     playerRb2d.bodyType = RigidbodyType2D.Kinematic;
-                    StartCoroutine("ResetBashAddforce");
+                    player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;
 
@@ -127,7 +120,7 @@ public class ShieldDeflection : MonoBehaviour
                     playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(1, 0) * bashForce, ForceMode2D.Impulse);
                     playerRb2d.bodyType = RigidbodyType2D.Kinematic;
-                    StartCoroutine("ResetBashAddforce");
+                    player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;
 
@@ -136,7 +129,7 @@ public class ShieldDeflection : MonoBehaviour
                     playerRb2d.bodyType = RigidbodyType2D.Dynamic;
                     playerRb2d.AddForce(new Vector2(1, -1) * bashForce, ForceMode2D.Impulse);
                     playerRb2d.bodyType = RigidbodyType2D.Kinematic;
-                    StartCoroutine("ResetBashAddforce");
+                    player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;
 

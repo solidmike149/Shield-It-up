@@ -13,6 +13,8 @@ public class ShieldMovement : MonoBehaviour
     public Directions shieldDirection;
 
     public PlayerPlatformer playerScript;
+
+    private Vector3 zero = Vector3.zero;
     
     private void Awake()
     {
@@ -27,7 +29,7 @@ public class ShieldMovement : MonoBehaviour
     {
         MoveShield(DetectDirection(ComputeAngle(canCompute)));
     }
-
+    
     private float ComputeAngle(bool x)
     {
         float actualAngle = shieldAngle;
@@ -35,7 +37,7 @@ public class ShieldMovement : MonoBehaviour
         {
             Vector2 mousePosition = Input.mousePosition;
 
-            Vector2 targetScreenPosition = Camera.main.WorldToScreenPoint(transform.position);
+            Vector2 targetScreenPosition = Camera.main.WorldToScreenPoint(zero);//alternative transform.position
 
             Vector2 offset = new Vector2(mousePosition.x - targetScreenPosition.x, mousePosition.y - targetScreenPosition.y);
 

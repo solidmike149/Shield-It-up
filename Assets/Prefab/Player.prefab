@@ -96,12 +96,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shieldMovScript: {fileID: 1194851581761924690}
   player: {fileID: 0}
-  resetVelocity: 0
+  resetVelocity: 0.5
   deflectionSpeed: 1.5
   rebound: 4
   hitting: 0
   toDestroy: {fileID: 0}
-  bashForce: 1
+  bashForce: 2
 --- !u!61 &9060387205937499191
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -321,6 +321,7 @@ MonoBehaviour:
   canHpUp: 0
   scrapScript: {fileID: 0}
   shieldScript: {fileID: 1194851581761924690}
+  resetVelocity: 0.7
 --- !u!95 &1194851581406485612
 Animator:
   serializedVersion: 3
