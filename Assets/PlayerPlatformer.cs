@@ -57,12 +57,16 @@ public class PlayerPlatformer : PhysicsObject
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Reset piattaforma infuocata
-        if (collision.gameObject.CompareTag("Floor") && isBurning)
+        if(collision.gameObject.CompareTag("Floor"))
         {
-            isBurning = false;
-            animator.SetBool("IsBurning", false);
+            animator.SetBool("OnFloor", true);
+            if (isBurning)
+            {
+                isBurning = false;
+                animator.SetBool("IsBurning", false);
+            }
         }
+
         // Collisione proiettili e morte
         else if (collision.gameObject.CompareTag ("Projectile") || collision.gameObject.CompareTag ("TriggerProjectile"))
         {
@@ -74,6 +78,14 @@ public class PlayerPlatformer : PhysicsObject
                 Destroy(transform.GetChild(0).gameObject);
                 animator.SetTrigger("Dead");
             }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            animator.SetBool("OnFloor", false);
         }
     }
 
@@ -204,6 +216,11 @@ public class PlayerPlatformer : PhysicsObject
     private void LoadLevel(int index)
     {
         SceneManager.LoadScene(index);
+    }
+
+    public void DestroyChildren()
+    {
+        Destroy(transform.GetChild(0).gameObject);
     }
 
     IEnumerator ScrapChildrenBehaviour()

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 601747366100279555}
   - component: {fileID: 601747366100279554}
-  - component: {fileID: 8015265684062256329}
   - component: {fileID: 601747366100279581}
   - component: {fileID: 601747366100279580}
+  - component: {fileID: 2991006289390585272}
   m_Layer: 14
   m_Name: Barrel
   m_TagString: Untagged
@@ -72,33 +72,17 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: 3beb269f809f99748813603412068415, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6890b91f75485e242aa3358e880a1532, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 2.25}
+  m_Size: {x: 2.65, y: 2.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8015265684062256329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 601747366100279583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 159af3363e7fa3346937111b5e9c9fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obj: {fileID: 6431589050081551808, guid: 468dc628152a3404c93983ccfdbb949b, type: 3}
-  spawnpoint: {fileID: 601747367211306375}
-  sRenderer: {fileID: 0}
-  deactivateTime: 3
 --- !u!61 &601747366100279581
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -116,8 +100,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3, y: 2.25}
-    newSize: {x: 3, y: 2.25}
+    oldSize: {x: 2.65, y: 2.2}
+    newSize: {x: 2.65, y: 2.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -144,6 +128,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2991006289390585272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601747366100279583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159af3363e7fa3346937111b5e9c9fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletRotation: 0
+  obj: {fileID: 6431589050081551808, guid: 468dc628152a3404c93983ccfdbb949b, type: 3}
+  spawnpoint: {fileID: 601747367211306375}
+  deactivateTime: 3
 --- !u!1 &601747367211306374
 GameObject:
   m_ObjectHideFlags: 0

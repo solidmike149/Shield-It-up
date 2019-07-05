@@ -1,10 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    public Canvas canvas;
+
+    private bool paused;
+
+    private void Awake()
+    {
+        //canvas = FindObjectOfType<Canvas>();
+
+        paused = false;
+    }
+
+    private void Update()
+    {
+        Pause();
+    }
 
     public void LoadMainMenu()
     {
@@ -34,5 +51,23 @@ public class GameManager : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void Pause()
+    {
+        if (Input.GetButtonDown("Pause"))
+        {
+            if (!paused)
+            {
+                canvas.gameObject.SetActive(true);
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                canvas.gameObject.SetActive(false);
+                Time.timeScale = 1f;
+            }
+            
+        }
     }
 }

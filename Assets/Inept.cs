@@ -10,8 +10,6 @@ public class Inept : MonoBehaviour
 
     public float speed;
 
-    public float fireRate;
-
     public GameObject obj;
 
     public bool shooting;
@@ -20,11 +18,13 @@ public class Inept : MonoBehaviour
 
     public float cooldown;
 
-    public float delay;
+    private Animator animator;
 
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -44,22 +44,28 @@ public class Inept : MonoBehaviour
     {
         if (shooting == false)
         {
-            if (transform.position.x > playerTransform.position.x - 0.05f && transform.position.x < playerTransform.position.x + 0.05f)
+            if (transform.position.x > playerTransform.position.x - 0.1f && transform.position.x < playerTransform.position.x + 0.1f)
             {
                 StartCoroutine("SpawnProjectile");
-                shooting = true;
             }   
         }
     }
 
+    public void Shoot()
+    {
+        Instantiate(obj, spawnpoint.transform.position, spawnpoint.transform.rotation);
+    }
+
     IEnumerator SpawnProjectile()
     {
-        yield return new WaitForSeconds(fireRate);
-        Instantiate(obj, spawnpoint.transform.position, spawnpoint.transform.rotation);
-        shooting = false;
+        animator.SetBool("Shooting", true);
+        shooting = true;
         moving = false;
 
         yield return new WaitForSeconds(cooldown);
+
+        animator.SetBool("Shooting", false);
         moving = true;
+        shooting = false;
     }
 }
