@@ -4336,6 +4336,11 @@ PrefabInstance:
       propertyPath: bulletRotation
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 2991006289390585272, guid: 70d3a30a04b16a6478ed5b7d1e770213,
+        type: 3}
+      propertyPath: bulletRotation
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70d3a30a04b16a6478ed5b7d1e770213, type: 3}
 --- !u!1 &1054128569

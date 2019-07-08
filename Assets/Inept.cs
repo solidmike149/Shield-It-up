@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Inept : MonoBehaviour
 {
-    public Transform playerTransform;
+    private Transform playerTransform;
 
     public Transform spawnpoint;
 
-    public float speed;
+    public float gdspeed;
 
     public GameObject obj;
 
-    public bool shooting;
+    private bool shooting;
 
-    public bool moving = true;
+    private bool canMove = true;
 
-    public float cooldown;
+    public float gdcooldown;
 
     private Animator animator;
 
@@ -29,9 +29,9 @@ public class Inept : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Vector2.Distance(transform.position, playerTransform.position) > 0.5f && moving)
+        if (Vector2.Distance(transform.position, playerTransform.position) > 0.5f && canMove)
         {
-            transform.position = Vector2.Lerp(transform.position, new Vector2(playerTransform.position.x, transform.position.y), speed * Time.deltaTime);
+            transform.position = Vector2.Lerp(transform.position, new Vector2(playerTransform.position.x, transform.position.y), gdspeed * Time.deltaTime);
         }
     }
 
@@ -46,26 +46,30 @@ public class Inept : MonoBehaviour
         {
             if (transform.position.x > playerTransform.position.x - 0.1f && transform.position.x < playerTransform.position.x + 0.1f)
             {
-                StartCoroutine("SpawnProjectile");
+                Charging();
+
+                animator.SetTrigger("Shooting");
             }   
         }
+    }
+
+    public void Charging()
+    {
+        canMove = false;
+        shooting = true;
     }
 
     public void Shoot()
     {
         Instantiate(obj, spawnpoint.transform.position, spawnpoint.transform.rotation);
+        StartCoroutine("Waiting");
     }
 
-    IEnumerator SpawnProjectile()
+    IEnumerator Waiting()
     {
-        animator.SetBool("Shooting", true);
-        shooting = true;
-        moving = false;
+        yield return new WaitForSeconds(gdcooldown);
 
-        yield return new WaitForSeconds(cooldown);
-
-        animator.SetBool("Shooting", false);
-        moving = true;
+        canMove = true;
         shooting = false;
     }
 }

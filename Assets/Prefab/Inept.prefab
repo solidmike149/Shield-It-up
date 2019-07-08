@@ -146,11 +146,10 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   spawnpoint: {fileID: 5728357203102460835}
   speed: 1.5
-  fireRate: 2
   obj: {fileID: 3123883303279527264, guid: f9ab3b252e5327349b65adc78c72f0dc, type: 3}
   shooting: 0
-  moving: 1
-  cooldown: 1
+  canMove: 1
+  cooldown: 3
 --- !u!95 &2344906396404014556
 Animator:
   serializedVersion: 3

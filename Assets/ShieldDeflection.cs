@@ -56,9 +56,9 @@ public class ShieldDeflection : MonoBehaviour
 
     private void ShieldBash()
     {
+        player.animator.SetTrigger("PlayerBash");
         if (hitting)
         {
-            player.animator.SetTrigger("PlayerBash");
             switch (shieldMovScript.shieldDirection)
             {
                 case ShieldMovement.Directions.N:

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Barrell : MonoBehaviour
 {
-    public int bulletRotation;
+    public int gdbulletRotation;
 
     public GameObject obj;
 
@@ -14,7 +14,7 @@ public class Barrell : MonoBehaviour
 
     private Animator animator;
 
-    public float deactivateTime;
+    public float gddeactivateTime;
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class Barrell : MonoBehaviour
 
     private void Shoot()
     {
-        Instantiate(obj, spawnpoint.position, spawnpoint.rotation = new Quaternion(0, bulletRotation, 0, 0));
+        Instantiate(obj, spawnpoint.position, spawnpoint.rotation = new Quaternion(0, gdbulletRotation, 0, 0));
     }
 
     IEnumerator TurretShutdown()
@@ -42,7 +42,7 @@ public class Barrell : MonoBehaviour
 
         //sRenderer.color = Color.grey;
 
-        yield return new WaitForSeconds(deactivateTime);
+        yield return new WaitForSeconds(gddeactivateTime);
 
         //sRenderer.color = Color.white;
 

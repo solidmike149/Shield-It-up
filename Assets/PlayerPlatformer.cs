@@ -8,10 +8,10 @@ public class PlayerPlatformer : PhysicsObject
     public int hp = 1;
 
     //10 Velocita di movimento del GameObject
-    public float maxSpeed;
+    public float gdmaxSpeed;
 
     //5 Aggiungiamo una potenza di salto
-    public float jumpTakeOffSpeed;
+    public float gdjumpTakeOffSpeed;
 
     //13 Variabile per lo sprite che ci servirà per far girare la sprite
     private SpriteRenderer spriteRenderer;
@@ -138,7 +138,7 @@ public class PlayerPlatformer : PhysicsObject
         if (Input.GetButtonDown("Jump") && grounded && !grabbing)
         {
             //6 impostiamo la velocita del salto
-            velocity.y = jumpTakeOffSpeed;
+            velocity.y = gdjumpTakeOffSpeed;
 
             animator.SetTrigger("JumpCharge");
 
@@ -201,7 +201,7 @@ public class PlayerPlatformer : PhysicsObject
         //animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
         //11 Movimento che verrà passato anche alla classe PhysicsObject. Adesso vogliamo far partire le animazioni
-        targetVelocity = move * maxSpeed;
+        targetVelocity = move * gdmaxSpeed;
 
         if (Mathf.Abs(velocity.x) > 0)
         {
