@@ -14,13 +14,13 @@ public class FirePlatform : MonoBehaviour
 
             if (!playerscript.isBurning)
             {
-                collision.rigidbody.bodyType = RigidbodyType2D.Dynamic;
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * rebound, ForceMode2D.Impulse);
+                collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.up * rebound;
+                //collision.rigidbody.bodyType = RigidbodyType2D.Dynamic;
+                //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * rebound, ForceMode2D.Impulse);
+                //collision.rigidbody.bodyType = RigidbodyType2D.Kinematic;
                 playerscript.isBurning = true;
                 playerscript.animator.SetBool("IsBurning", true);
-                playerscript.StartCoroutine("ResetAddforce");
-                collision.rigidbody.bodyType = RigidbodyType2D.Kinematic;
-                
+                playerscript.StartCoroutine("ResetAddforce"); 
             } 
             else
             {

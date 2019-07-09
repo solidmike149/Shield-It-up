@@ -113,7 +113,7 @@ public class ShieldMovement : MonoBehaviour
 
     private void MoveShield(Directions directions)
     {
-        if(!playerScript.grabbing)
+        //if(!playerScript.grabbing)
         switch (shieldDirection)
         {
             case Directions.N:
@@ -127,6 +127,7 @@ public class ShieldMovement : MonoBehaviour
 
             case Directions.E:
                 transform.eulerAngles = new Vector3(0, 0, 0);
+                playerScript.transform.rotation = Quaternion.identity;
                 break;
 
             case Directions.SE:
@@ -151,6 +152,7 @@ public class ShieldMovement : MonoBehaviour
 
             case Directions.W:
                 transform.eulerAngles = new Vector3(0, 0, 180);
+                playerScript.transform.eulerAngles = new Vector3(0, 180, 0);
                 break;
 
             case Directions.NW:
