@@ -311,7 +311,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   hp: 1
-  gdmaxSpeed: 3
+  gdmaxSpeed: 2.2
   gdjumpTakeOffSpeed: 4
   animator: {fileID: 0}
   isBurning: 0

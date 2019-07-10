@@ -96,18 +96,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.19549793, y: -0.3021332}
+  m_Offset: {x: 0.15639639, y: -0.2082892}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3, y: 4.22}
+    oldSize: {x: 3.12, y: 3.82}
     newSize: {x: 3, y: 4.22}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.400469, y: 3.615733}
+  m_Size: {x: 1.3848281, y: 3.4280448}
   m_EdgeRadius: 0
 --- !u!95 &2399400654041647287
 Animator:
@@ -163,3 +163,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rebound: 5
   playerRb2d: {fileID: 0}
+  speed: 0.005

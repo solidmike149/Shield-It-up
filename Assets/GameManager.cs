@@ -48,6 +48,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(5);
     }
 
+    public void LoadCredits()
+    {
+        SceneManager.LoadScene(6);
+    }
+
     public void Exit()
     {
         Application.Quit();

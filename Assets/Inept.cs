@@ -18,11 +18,15 @@ public class Inept : MonoBehaviour
 
     public float gdcooldown;
 
+    private SpriteRenderer spriteRenderer;
+
     private Animator animator;
 
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         animator = GetComponent<Animator>();
     }
@@ -37,6 +41,19 @@ public class Inept : MonoBehaviour
 
     private void Update()
     {
+        Vector2 move = Vector2.zero;
+
+        move.x = Input.GetAxis("Horizontal");
+
+        bool flipSprite = (spriteRenderer.flipX ? (move.x > 0f) : (move.x < 0f));
+
+        if (flipSprite)
+        {
+
+            //17 lo giriamo (opposto)
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+        }
+
         OnTarget();
     }
 

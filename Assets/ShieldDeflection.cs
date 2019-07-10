@@ -59,6 +59,7 @@ public class ShieldDeflection : MonoBehaviour
         player.animator.SetTrigger("PlayerBash");
         if (hitting)
         {
+            hitting = false;
             switch (shieldMovScript.shieldDirection)
             {
                 case ShieldMovement.Directions.N:
@@ -98,10 +99,12 @@ public class ShieldDeflection : MonoBehaviour
                     break;
 
                 case ShieldMovement.Directions.S:
-                    playerRb2d.velocity = Vector2.zero;
-                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
-                    playerRb2d.AddForce(new Vector2(0, 1) * bashForce, ForceMode2D.Impulse);
-                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    playerRb2d.velocity = Vector2.up * bashForce * 2;
+                    playerRb2d.transform.rotation = new Quaternion(0, 0, 90,0);
+                    //playerRb2d.velocity = Vector2.zero;
+                    //playerRb2d.bodyType = RigidbodyType2D.Dynamic;
+                    //playerRb2d.AddForce(new Vector2(0, 1) * bashForce, ForceMode2D.Impulse);
+                    //playerRb2d.bodyType = RigidbodyType2D.Kinematic;
                     player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;
@@ -116,10 +119,11 @@ public class ShieldDeflection : MonoBehaviour
                     break;
 
                 case ShieldMovement.Directions.W:
-                    playerRb2d.velocity = Vector2.zero;
-                    playerRb2d.bodyType = RigidbodyType2D.Dynamic;
-                    playerRb2d.AddForce(new Vector2(1, 0) * bashForce, ForceMode2D.Impulse);
-                    playerRb2d.bodyType = RigidbodyType2D.Kinematic;
+                    playerRb2d.velocity = Vector2.right * bashForce;
+                    //playerRb2d.velocity = Vector2.zero;
+                    //playerRb2d.bodyType = RigidbodyType2D.Dynamic;
+                    //playerRb2d.AddForce(new Vector2(1, 0) * bashForce, ForceMode2D.Impulse);
+                    //playerRb2d.bodyType = RigidbodyType2D.Kinematic;
                     player.StartCoroutine("ResetAddforce");
                     Destroy(toDestroy);
                     break;

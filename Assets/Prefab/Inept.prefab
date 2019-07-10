@@ -143,13 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610cabd46daf27648b471e426ddf6337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
   spawnpoint: {fileID: 5728357203102460835}
-  speed: 1.5
+  gdspeed: 2
   obj: {fileID: 3123883303279527264, guid: f9ab3b252e5327349b65adc78c72f0dc, type: 3}
-  shooting: 0
-  canMove: 1
-  cooldown: 3
+  gdcooldown: 1.5
 --- !u!95 &2344906396404014556
 Animator:
   serializedVersion: 3

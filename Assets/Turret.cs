@@ -16,8 +16,12 @@ public class Turret : MonoBehaviour
 
     public float gddeactivateTime;
 
+    private GameObject child;
+
     private void Awake()
     {
+        child = transform.GetChild(1).gameObject;
+
         animator = GetComponent<Animator>();
 
         sRenderer = GetComponent<SpriteRenderer>();
@@ -38,13 +42,17 @@ public class Turret : MonoBehaviour
 
     IEnumerator TurretShutdown()
     {
+        child.SetActive(true);
+
         animator.SetBool("ShutDown", true);
 
-        //sRenderer.color = Color.grey;
+        sRenderer.color = Color.grey;
 
         yield return new WaitForSeconds(gddeactivateTime);
 
-        //sRenderer.color = Color.white;
+        sRenderer.color = Color.white;
+
+        child.SetActive(false);
 
         animator.SetBool("ShutDown", false);
     }

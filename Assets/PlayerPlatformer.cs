@@ -79,6 +79,14 @@ public class PlayerPlatformer : PhysicsObject
                 animator.SetTrigger("Dead");
             }
         }
+        else if (collision.gameObject.CompareTag("Geyser"))
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            Destroy(transform.GetChild(0).gameObject);
+            gravityModifier = 0;
+            //Destroy(this);
+            animator.SetTrigger("GeyserDeath");
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -102,7 +110,7 @@ public class PlayerPlatformer : PhysicsObject
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             Destroy(transform.GetChild(0).gameObject);
             gravityModifier = 0;
-            Destroy(this);
+            //Destroy(this);
             animator.SetTrigger("GeyserDeath");
         }
     }

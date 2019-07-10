@@ -71,7 +71,7 @@ public class ShieldMovement : MonoBehaviour
                 {
                     shieldDirection = Directions.SE;
                 }
-                else shieldDirection = x;
+                //else shieldDirection = x;
 
             }
             else if (shieldAngle <= 284 && shieldAngle >= 255)
@@ -80,7 +80,7 @@ public class ShieldMovement : MonoBehaviour
                 {
                     shieldDirection = Directions.S;
                 }
-                else shieldDirection = x;
+                //else shieldDirection = x;
             }
             else if (shieldAngle < 254 && shieldAngle > 195)
             {
@@ -88,7 +88,7 @@ public class ShieldMovement : MonoBehaviour
                 {
                     shieldDirection = Directions.SW;
                 }
-                else shieldDirection = x;
+                //else shieldDirection = x;
             }
             else if (shieldAngle <= 194 && shieldAngle >= 165)
             {

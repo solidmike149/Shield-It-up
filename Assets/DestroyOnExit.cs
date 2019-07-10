@@ -8,9 +8,7 @@ public class DestroyOnExit : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Player"))
-            SceneManager.LoadScene(2);
-        else
+        if (!collision.gameObject.CompareTag("Player"))
             Destroy(collision.gameObject);
     }
 }
